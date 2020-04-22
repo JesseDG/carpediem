@@ -11,9 +11,12 @@
 |
 */
 
-Route::group(['middleware' => 'auth'], function(){
+/*Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index');
 });
 
 Auth::routes();
-Route::get('/authadmin',function(){ return view('Auth\authadmin');} )->name('authadmin');
+Route::get('/authadmin',function(){ return view('auth/authadmin');} )->name('authadmin');*/
+
+// Route to handle SPA
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');

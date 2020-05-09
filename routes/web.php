@@ -11,12 +11,15 @@
 |
 */
 
-/*Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', 'HomeController@index');
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/{any}', function () { return view('spa');  })->where('any','.*'); 
 });
 
-Auth::routes();
-Route::get('/authadmin',function(){ return view('auth/authadmin');} )->name('authadmin');*/
+Route::get('/authadmin',function(){ return view('auth/authadmin');} )->name('authadmin');
 
 // Route to handle SPA
-Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+//Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+

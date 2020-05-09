@@ -1,0 +1,51 @@
+html, body {
+    height: 100%;
+    display:block;
+    overflow: hidden;
+}
+.header{
+    font-size: 20px;
+    background-image: linear-gradient(to right, #1670AC , #cccccc);
+    color:black;
+    padding: 0 !important;
+    position: relative;
+    height:56px;
+    display:flex;
+}
+.header-content{
+    height: inherit;
+    max-height: inherit;
+    float:left;
+}
+.inside-content{
+    display: inline-block;
+}
+.left-side{
+    width:90%;
+}
+.right-side{
+    width: 10%;
+    border-left:1px solid #e8e8e8;
+    cursor: pointer;
+    padding-top: 0.8rem;
+    text-align: center;
+}
+.right-side:hover{
+    background-color:#CA0B00;
+    color:white;
+}
+.quit-btn{
+    display: flex;
+    flex-direction: column;
+}
+.container-fluid{
+    height: 100%;
+    overflow: hidden;
+}
+.nav-sidebar > .active > router-link {
+    color: #fff;
+    background-color: #428bca;
+}
+.nav > li:hover{
+    background-color: #eee;
+}

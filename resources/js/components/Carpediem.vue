@@ -1,5 +1,5 @@
 <template>
-    
+    <h1>Carpediem</h1>
 </template>
 
 <script>

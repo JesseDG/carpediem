@@ -11,6 +11,7 @@ use Auth;
 use App\Login;
 use App\User;
 use App\Token;
+use App\Usertype;
 
 class LoginController extends Controller
 {
@@ -46,35 +47,45 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        //form's usertype
         $usertype = $request->_usertype;
         $isAuth = false;
         $creds = ['email'=> $request->email, 'password' => $request->password];
-        if($usertype == 1)
+
+        //user attempting to login
+        $attemptUser = Login::where('email','LIKE','%'.$request->email.'%')->first();
+        $attemptUserPosition = $attemptUser->user()->usertype_id;
+
+        if($usertype == $attemptUserPosition)
         {
-            $this->validate($request, ["email" => "required|email", "password" => "required", "Token" => "required"]);
-            $token_obj = Token::where('token', $request->Token)->first();
-            if( $token_obj != null)
+            if($usertype == 1)
             {
+                $this->validate($request, ["email" => "required|email", "password" => "required", "Token" => "required"]);
+                $token_obj = Token::where('token', $request->Token)->first();
+                if( $token_obj != null)
+                {
+                    if( Auth::attempt($creds))
+                    {
+                        $isAuth = true;
+                    }
+                }
+            }
+            else
+            {
+                $this->validate($request, ["email" => "required|email", "password" => "required"]);
                 if( Auth::attempt($creds))
                 {
                     $isAuth = true;
                 }
             }
-        }
-        else
-        {
-            $this->validate($request, ["email" => "required|email", "password" => "required"]);
-            if( Auth::attempt($creds))
+            
+            if($isAuth)
             {
-                $isAuth = true;
+                return view('spa');
             }
         }
-        
-        if($isAuth)
-        {
-            return redirect('/');
-        }
-        
+
+        return redirect('/');
     }
 
     public function logout(Request $request)
